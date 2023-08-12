@@ -9,6 +9,10 @@ using TMPro;
 
 public class Rocket : MonoBehaviour
 {
+    //Interstitial Script
+    public loadInterstitial interstitialAds;
+
+    [Space(20)]
     //Manage Rocket
     public GameObject R2;
 
@@ -47,7 +51,7 @@ public class Rocket : MonoBehaviour
 
     //input
     int space = 0, left = 0, right = 0;
-    float volume = 0.3f;
+    //float volume = 0.3f;
 
 
     //Particle
@@ -66,6 +70,7 @@ public class Rocket : MonoBehaviour
 
     void Start()
     {
+
         success.volume = PlayerPrefs.GetFloat("effect"); 
         death.volume = PlayerPrefs.GetFloat("effect"); 
         buttonAudio.volume = PlayerPrefs.GetFloat("effect"); 
@@ -82,29 +87,11 @@ public class Rocket : MonoBehaviour
         incThrust = 1.5f;
     }
 
-    /*public void selectTheRocket(int selected)
+    public void PlayAds() 
     {
-        R1.SetActive(false);
-        R2.SetActive(false);
-
-        switch (selected)
-        {
-            case 1:
-                R1.SetActive(true);
-                currentParticleSystem = R1_ParticleSystem;
-                decThrust = 1f;
-                incThrust = 1.5f;
-                break;
-
-            case 2:
-                R2.SetActive(true);
-                currentParticleSystem = R2_ParticleSystem;
-                decThrust = 1f;
-                incThrust = 1.5f;
-                break;
-        }
+        interstitialAds.LoadAd();
     }
-*/
+
     // Update is called once per frame
     void Update()
     {
@@ -159,6 +146,8 @@ public class Rocket : MonoBehaviour
 
     private void StartSccessSequence()
     {
+        Invoke("PlayAds", 1f);
+
         mainEngine.volume = 0f;
         Save();
         state = State.Transcening;
